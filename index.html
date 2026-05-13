@@ -1,0 +1,2082 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Meridian Specialty Insurance — Builders Risk & Vacant Property Coverage</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700&family=Geist+Mono:wght@400;500&family=Inter+Tight:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --turquoise: #2DD4BF;
+    --turquoise-deep: #14B8A6;
+    --turquoise-soft: rgba(45, 212, 191, 0.08);
+    --turquoise-glow: rgba(45, 212, 191, 0.25);
+  }
+
+  html[data-theme="dark"] {
+    --bg: #0A0E0E;
+    --bg-elev: #11181A;
+    --bg-card: #0F1517;
+    --border: rgba(255, 255, 255, 0.07);
+    --border-strong: rgba(255, 255, 255, 0.14);
+    --text: #F2F5F4;
+    --text-dim: #8A9396;
+    --text-faint: #565E61;
+    --grain-opacity: 0.04;
+    --hero-overlay: linear-gradient(180deg, rgba(10,14,14,0) 0%, rgba(10,14,14,0.6) 70%, rgba(10,14,14,1) 100%);
+  }
+
+  html[data-theme="light"] {
+    --bg: #FAFAF8;
+    --bg-elev: #FFFFFF;
+    --bg-card: #FFFFFF;
+    --border: rgba(0, 0, 0, 0.08);
+    --border-strong: rgba(0, 0, 0, 0.16);
+    --text: #0A0E0E;
+    --text-dim: #5A6366;
+    --text-faint: #9CA4A7;
+    --grain-opacity: 0.02;
+    --hero-overlay: linear-gradient(180deg, rgba(250,250,248,0) 0%, rgba(250,250,248,0.6) 70%, rgba(250,250,248,1) 100%);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter Tight', sans-serif;
+    font-feature-settings: 'ss01', 'cv11';
+    line-height: 1.5;
+    overflow-x: hidden;
+    transition: background 0.4s ease, color 0.4s ease;
+    min-height: 100vh;
+  }
+
+  /* Grain texture overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1000;
+    opacity: var(--grain-opacity);
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' /%3E%3C/svg%3E");
+    mix-blend-mode: overlay;
+  }
+
+  .display-serif {
+    font-family: 'Fraunces', serif;
+    font-optical-sizing: auto;
+    letter-spacing: -0.02em;
+    font-weight: 400;
+  }
+
+  .mono { font-family: 'Geist Mono', monospace; }
+
+  /* ==================== NAV ==================== */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 20px 48px;
+    background: rgba(10,14,14,0);
+    backdrop-filter: blur(0px);
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  nav.scrolled {
+    background: color-mix(in srgb, var(--bg) 75%, transparent);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    padding: 14px 48px;
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    text-decoration: none;
+    color: var(--text);
+  }
+
+  .logo-mark {
+    width: 32px;
+    height: 32px;
+    position: relative;
+  }
+
+  .logo-mark svg { width: 100%; height: 100%; }
+
+  .logo-text {
+    font-family: 'Fraunces', serif;
+    font-size: 20px;
+    letter-spacing: -0.02em;
+    font-weight: 500;
+  }
+
+  .logo-text em {
+    color: var(--turquoise);
+    font-style: italic;
+    font-weight: 400;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+  }
+
+  .nav-link {
+    padding: 8px 14px;
+    font-size: 14px;
+    color: var(--text-dim);
+    text-decoration: none;
+    border-radius: 6px;
+    transition: all 0.2s;
+    cursor: pointer;
+    background: none;
+    border: none;
+    font-family: inherit;
+  }
+
+  .nav-link:hover { color: var(--text); background: var(--turquoise-soft); }
+  .nav-link.active { color: var(--turquoise); }
+
+  .nav-dropdown { position: relative; }
+  .nav-dropdown-menu {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    background: var(--bg-elev);
+    border: 1px solid var(--border-strong);
+    border-radius: 12px;
+    padding: 8px;
+    min-width: 240px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-8px);
+    transition: all 0.2s;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+  }
+  .nav-dropdown:hover .nav-dropdown-menu {
+    opacity: 1; visibility: visible; transform: translateY(0);
+  }
+  .nav-dropdown-item {
+    display: block;
+    padding: 10px 12px;
+    color: var(--text);
+    text-decoration: none;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .nav-dropdown-item:hover { background: var(--turquoise-soft); }
+  .nav-dropdown-item .badge {
+    display: inline-block;
+    margin-left: 8px;
+    font-size: 10px;
+    padding: 2px 6px;
+    border-radius: 4px;
+    background: var(--turquoise-soft);
+    color: var(--turquoise);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  .nav-cta-group {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-left: 20px;
+  }
+
+  .theme-toggle {
+    background: none;
+    border: 1px solid var(--border-strong);
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    color: var(--text);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+  }
+  .theme-toggle:hover {
+    border-color: var(--turquoise);
+    color: var(--turquoise);
+  }
+  .theme-toggle svg { width: 16px; height: 16px; transition: transform 0.4s; }
+  .theme-toggle:hover svg { transform: rotate(90deg); }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 22px;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: all 0.25s;
+    text-decoration: none;
+    border: none;
+    font-family: inherit;
+    white-space: nowrap;
+  }
+  .btn-primary {
+    background: var(--turquoise);
+    color: #0A0E0E;
+  }
+  .btn-primary:hover {
+    background: var(--turquoise-deep);
+    transform: translateY(-1px);
+    box-shadow: 0 8px 24px var(--turquoise-glow);
+  }
+  .btn-ghost {
+    background: transparent;
+    color: var(--text);
+    border: 1px solid var(--border-strong);
+  }
+  .btn-ghost:hover {
+    border-color: var(--turquoise);
+    color: var(--turquoise);
+  }
+  .btn-arrow { transition: transform 0.25s; }
+  .btn:hover .btn-arrow { transform: translateX(3px); }
+
+  /* ==================== PAGES ==================== */
+  .page { display: none; padding-top: 88px; min-height: 100vh; }
+  .page.active { display: block; animation: pageIn 0.6s ease; }
+  @keyframes pageIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .container { max-width: 1280px; margin: 0 auto; padding: 0 48px; }
+  .container-narrow { max-width: 960px; margin: 0 auto; padding: 0 48px; }
+
+  /* ==================== HERO ==================== */
+  .hero {
+    position: relative;
+    padding: 80px 0 120px;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+  }
+
+  .hero-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(var(--border) 1px, transparent 1px),
+      linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    background-size: 80px 80px;
+    mask-image: radial-gradient(ellipse at top right, black 0%, transparent 60%);
+    -webkit-mask-image: radial-gradient(ellipse at top right, black 0%, transparent 60%);
+  }
+
+  .hero-glow {
+    position: absolute;
+    top: -200px;
+    right: -200px;
+    width: 800px;
+    height: 800px;
+    background: radial-gradient(circle, var(--turquoise-glow) 0%, transparent 60%);
+    filter: blur(40px);
+    opacity: 0.5;
+    animation: floatGlow 12s ease-in-out infinite;
+  }
+
+  @keyframes floatGlow {
+    0%, 100% { transform: translate(0, 0); }
+    50% { transform: translate(-50px, 50px); }
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 1;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 48px;
+  }
+
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Geist Mono', monospace;
+    font-size: 12px;
+    color: var(--turquoise);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 32px;
+    padding: 8px 14px;
+    border: 1px solid var(--turquoise);
+    border-radius: 999px;
+    background: var(--turquoise-soft);
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.1s forwards;
+  }
+
+  .hero-eyebrow::before {
+    content: '';
+    width: 6px; height: 6px;
+    background: var(--turquoise);
+    border-radius: 50%;
+    box-shadow: 0 0 12px var(--turquoise);
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero h1 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(48px, 8vw, 112px);
+    line-height: 0.95;
+    letter-spacing: -0.04em;
+    font-weight: 400;
+    max-width: 16ch;
+    margin-bottom: 32px;
+    opacity: 0;
+    animation: fadeUp 1s ease 0.2s forwards;
+  }
+  .hero h1 em {
+    font-style: italic;
+    color: var(--turquoise);
+    font-weight: 300;
+  }
+
+  .hero-sub {
+    font-size: 20px;
+    color: var(--text-dim);
+    max-width: 52ch;
+    line-height: 1.5;
+    margin-bottom: 48px;
+    opacity: 0;
+    animation: fadeUp 1s ease 0.4s forwards;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp 1s ease 0.6s forwards;
+  }
+
+  .hero-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 32px;
+    margin-top: 120px;
+    padding-top: 48px;
+    border-top: 1px solid var(--border);
+    opacity: 0;
+    animation: fadeUp 1s ease 0.8s forwards;
+  }
+
+  .stat .stat-num {
+    font-family: 'Fraunces', serif;
+    font-size: 56px;
+    font-weight: 300;
+    color: var(--turquoise);
+    line-height: 1;
+    letter-spacing: -0.03em;
+  }
+  .stat .stat-label {
+    margin-top: 8px;
+    font-size: 13px;
+    color: var(--text-dim);
+    font-family: 'Geist Mono', monospace;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  /* ==================== SECTION HEADERS ==================== */
+  .section { padding: 120px 0; position: relative; }
+  .section-divider {
+    height: 1px;
+    background: var(--border);
+    width: 100%;
+  }
+
+  .section-eyebrow {
+    font-family: 'Geist Mono', monospace;
+    font-size: 12px;
+    color: var(--turquoise);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .section-eyebrow::before {
+    content: '';
+    width: 32px; height: 1px;
+    background: var(--turquoise);
+  }
+
+  .section-title {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(36px, 5vw, 64px);
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    font-weight: 400;
+    margin-bottom: 24px;
+    max-width: 20ch;
+  }
+  .section-title em { font-style: italic; color: var(--turquoise); font-weight: 300; }
+
+  .section-intro {
+    font-size: 18px;
+    color: var(--text-dim);
+    max-width: 60ch;
+    margin-bottom: 64px;
+  }
+
+  /* ==================== PRODUCTS ==================== */
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    margin-top: 64px;
+  }
+
+  .product-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: 48px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s;
+    cursor: pointer;
+    min-height: 380px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .product-card.active {
+    border-color: var(--turquoise);
+  }
+
+  .product-card::before {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 200px; height: 200px;
+    background: radial-gradient(circle at top right, var(--turquoise-soft) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.4s;
+    pointer-events: none;
+  }
+
+  .product-card:hover::before { opacity: 1; }
+  .product-card:hover {
+    border-color: var(--turquoise);
+    transform: translateY(-4px);
+  }
+
+  .product-status {
+    position: absolute;
+    top: 24px; right: 24px;
+    font-family: 'Geist Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 6px 10px;
+    border-radius: 4px;
+  }
+  .product-status.live {
+    background: var(--turquoise-soft);
+    color: var(--turquoise);
+    border: 1px solid var(--turquoise);
+  }
+  .product-status.soon {
+    background: rgba(120, 120, 120, 0.1);
+    color: var(--text-faint);
+    border: 1px solid var(--border-strong);
+  }
+
+  .product-number {
+    font-family: 'Geist Mono', monospace;
+    font-size: 12px;
+    color: var(--text-faint);
+    letter-spacing: 0.1em;
+  }
+
+  .product-title {
+    font-family: 'Fraunces', serif;
+    font-size: 36px;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    font-weight: 400;
+    margin: 24px 0 16px;
+  }
+
+  .product-desc {
+    color: var(--text-dim);
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  .product-cta {
+    margin-top: 32px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--turquoise);
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+  }
+
+  .product-cta-arrow { transition: transform 0.2s; }
+  .product-card:hover .product-cta-arrow { transform: translateX(4px); }
+
+  /* ==================== WHY US ==================== */
+  .why-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    overflow: hidden;
+  }
+
+  .why-item {
+    background: var(--bg);
+    padding: 48px 40px;
+    transition: background 0.3s;
+  }
+  .why-item:hover { background: var(--bg-card); }
+
+  .why-icon {
+    width: 48px; height: 48px;
+    border-radius: 12px;
+    background: var(--turquoise-soft);
+    border: 1px solid var(--turquoise);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--turquoise);
+    margin-bottom: 24px;
+  }
+
+  .why-title {
+    font-family: 'Fraunces', serif;
+    font-size: 22px;
+    font-weight: 500;
+    margin-bottom: 12px;
+    letter-spacing: -0.01em;
+  }
+  .why-desc { color: var(--text-dim); font-size: 15px; line-height: 1.6; }
+
+  /* ==================== PROCESS ==================== */
+  .process {
+    background: var(--bg-card);
+    border-radius: 32px;
+    padding: 80px 64px;
+    border: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .process-glow {
+    position: absolute;
+    bottom: -200px; left: -100px;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, var(--turquoise-glow) 0%, transparent 70%);
+    filter: blur(60px);
+    opacity: 0.3;
+  }
+
+  .process-steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 32px;
+    position: relative;
+    z-index: 1;
+    margin-top: 48px;
+  }
+
+  .process-step {
+    position: relative;
+  }
+
+  .process-num {
+    font-family: 'Fraunces', serif;
+    font-size: 64px;
+    font-weight: 300;
+    color: var(--turquoise);
+    line-height: 1;
+    margin-bottom: 16px;
+    letter-spacing: -0.04em;
+  }
+  .process-step-title {
+    font-family: 'Fraunces', serif;
+    font-size: 20px;
+    font-weight: 500;
+    margin-bottom: 8px;
+  }
+  .process-step-desc { color: var(--text-dim); font-size: 14px; }
+
+  /* ==================== QUOTE FORM ==================== */
+  .quote-page { background: var(--bg); }
+
+  .quote-hero {
+    padding: 60px 0 40px;
+    position: relative;
+  }
+
+  .form-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 360px;
+    gap: 64px;
+    align-items: start;
+  }
+
+  .form-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: 48px;
+  }
+
+  .form-step-indicator {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 40px;
+  }
+  .step-dot {
+    flex: 1;
+    height: 4px;
+    background: var(--border);
+    border-radius: 2px;
+    transition: background 0.4s;
+  }
+  .step-dot.active { background: var(--turquoise); }
+  .step-dot.completed { background: var(--turquoise-deep); }
+
+  .form-step { display: none; }
+  .form-step.active { display: block; animation: fadeUp 0.4s ease; }
+
+  .form-step-title {
+    font-family: 'Fraunces', serif;
+    font-size: 32px;
+    line-height: 1.1;
+    margin-bottom: 8px;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+  }
+  .form-step-sub {
+    color: var(--text-dim);
+    margin-bottom: 40px;
+    font-size: 15px;
+  }
+
+  .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  .form-grid.full { grid-template-columns: 1fr; }
+
+  .field { display: flex; flex-direction: column; gap: 8px; }
+  .field.span-2 { grid-column: span 2; }
+
+  .field label {
+    font-family: 'Geist Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+  }
+  .field label .required { color: var(--turquoise); }
+
+  .field input,
+  .field select,
+  .field textarea {
+    background: var(--bg);
+    border: 1px solid var(--border-strong);
+    color: var(--text);
+    padding: 14px 16px;
+    border-radius: 10px;
+    font-family: inherit;
+    font-size: 15px;
+    transition: all 0.2s;
+  }
+  .field input:focus,
+  .field select:focus,
+  .field textarea:focus {
+    outline: none;
+    border-color: var(--turquoise);
+    box-shadow: 0 0 0 3px var(--turquoise-soft);
+  }
+  .field input::placeholder { color: var(--text-faint); }
+
+  .radio-group {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .radio-option {
+    position: relative;
+    cursor: pointer;
+  }
+  .radio-option input { position: absolute; opacity: 0; pointer-events: none; }
+  .radio-option .radio-card {
+    background: var(--bg);
+    border: 1px solid var(--border-strong);
+    padding: 16px 18px;
+    border-radius: 10px;
+    font-size: 14px;
+    transition: all 0.2s;
+    text-align: center;
+  }
+  .radio-option input:checked + .radio-card {
+    border-color: var(--turquoise);
+    background: var(--turquoise-soft);
+    color: var(--turquoise);
+  }
+
+  .pill-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .pill-option {
+    position: relative;
+    cursor: pointer;
+  }
+  .pill-option input { position: absolute; opacity: 0; pointer-events: none; }
+  .pill-option .pill {
+    display: inline-block;
+    padding: 8px 16px;
+    border: 1px solid var(--border-strong);
+    border-radius: 999px;
+    font-size: 13px;
+    transition: all 0.2s;
+  }
+  .pill-option input:checked + .pill {
+    border-color: var(--turquoise);
+    background: var(--turquoise);
+    color: #0A0E0E;
+  }
+
+  .form-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 48px;
+    gap: 12px;
+  }
+
+  .summary-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 32px;
+    position: sticky;
+    top: 100px;
+  }
+
+  .summary-card h3 {
+    font-family: 'Fraunces', serif;
+    font-size: 20px;
+    margin-bottom: 24px;
+    font-weight: 500;
+  }
+
+  .summary-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+  }
+  .summary-item:last-child { border-bottom: none; }
+  .summary-item .label { color: var(--text-dim); }
+  .summary-item .value { color: var(--text); font-weight: 500; text-align: right; max-width: 60%; }
+  .summary-item .value.empty { color: var(--text-faint); font-weight: 400; font-style: italic; }
+
+  .quote-success {
+    display: none;
+    text-align: center;
+    padding: 80px 40px;
+  }
+  .quote-success.shown { display: block; animation: fadeUp 0.6s ease; }
+  .success-icon {
+    width: 80px; height: 80px;
+    border-radius: 50%;
+    background: var(--turquoise-soft);
+    border: 1px solid var(--turquoise);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--turquoise);
+    margin: 0 auto 32px;
+  }
+
+  /* ==================== ABOUT ==================== */
+  .about-hero {
+    padding: 60px 0 80px;
+  }
+
+  .about-block {
+    max-width: 760px;
+  }
+  .about-block p {
+    font-size: 19px;
+    line-height: 1.7;
+    color: var(--text-dim);
+    margin-bottom: 24px;
+  }
+  .about-block p strong {
+    color: var(--text);
+    font-weight: 500;
+  }
+
+  .values-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    margin-top: 64px;
+  }
+
+  .value-card {
+    padding: 32px;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    background: var(--bg-card);
+  }
+
+  .value-num {
+    font-family: 'Geist Mono', monospace;
+    font-size: 12px;
+    color: var(--turquoise);
+    letter-spacing: 0.1em;
+    margin-bottom: 16px;
+  }
+
+  .value-title {
+    font-family: 'Fraunces', serif;
+    font-size: 24px;
+    margin-bottom: 12px;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+  }
+
+  .value-desc { color: var(--text-dim); line-height: 1.6; font-size: 15px; }
+
+  /* Founder */
+  .founder {
+    margin-top: 120px;
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+
+  .founder-portrait {
+    aspect-ratio: 3/4;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .founder-portrait::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 30% 20%, var(--turquoise-soft) 0%, transparent 50%),
+      radial-gradient(circle at 70% 80%, var(--turquoise-glow) 0%, transparent 60%);
+    opacity: 0.6;
+  }
+
+  .founder-initials {
+    font-family: 'Fraunces', serif;
+    font-size: 96px;
+    font-weight: 300;
+    color: var(--turquoise);
+    position: relative;
+    z-index: 1;
+    letter-spacing: -0.04em;
+    font-style: italic;
+  }
+
+  .founder-body h3 {
+    font-family: 'Geist Mono', monospace;
+    font-size: 12px;
+    color: var(--turquoise);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+
+  .founder-body h2 {
+    font-family: 'Fraunces', serif;
+    font-size: 48px;
+    line-height: 1.05;
+    font-weight: 400;
+    margin-bottom: 8px;
+    letter-spacing: -0.03em;
+  }
+  .founder-body .founder-title {
+    font-size: 16px;
+    color: var(--text-dim);
+    margin-bottom: 32px;
+    font-style: italic;
+  }
+  .founder-body p {
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--text-dim);
+    margin-bottom: 20px;
+  }
+
+  /* ==================== COMING SOON ==================== */
+  .coming-soon-page {
+    padding: 100px 0 160px;
+    text-align: center;
+  }
+
+  .coming-soon-tag {
+    display: inline-block;
+    font-family: 'Geist Mono', monospace;
+    font-size: 12px;
+    color: var(--turquoise);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 8px 14px;
+    border: 1px solid var(--turquoise);
+    border-radius: 999px;
+    margin-bottom: 32px;
+    background: var(--turquoise-soft);
+  }
+
+  .coming-soon-page h1 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(48px, 7vw, 88px);
+    line-height: 1;
+    letter-spacing: -0.04em;
+    font-weight: 400;
+    margin-bottom: 32px;
+  }
+  .coming-soon-page h1 em { color: var(--turquoise); font-style: italic; font-weight: 300; }
+
+  .coming-soon-page p {
+    font-size: 18px;
+    color: var(--text-dim);
+    max-width: 56ch;
+    margin: 0 auto 48px;
+    line-height: 1.6;
+  }
+
+  /* ==================== CTA SECTION ==================== */
+  .cta-section {
+    padding: 100px 0;
+  }
+
+  .cta-box {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 32px;
+    padding: 80px 64px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-box::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at center, var(--turquoise-soft) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .cta-box > * { position: relative; z-index: 1; }
+
+  .cta-box h2 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(36px, 5vw, 64px);
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    font-weight: 400;
+    margin-bottom: 24px;
+    max-width: 18ch;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .cta-box h2 em { font-style: italic; color: var(--turquoise); font-weight: 300; }
+
+  .cta-box p {
+    font-size: 18px;
+    color: var(--text-dim);
+    max-width: 50ch;
+    margin: 0 auto 40px;
+  }
+
+  /* ==================== FOOTER ==================== */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 80px 0 40px;
+    background: var(--bg);
+  }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 48px;
+    margin-bottom: 64px;
+  }
+  .footer-brand .logo { margin-bottom: 20px; }
+  .footer-brand p { color: var(--text-dim); font-size: 14px; line-height: 1.6; max-width: 32ch; }
+
+  .footer-col h4 {
+    font-family: 'Geist Mono', monospace;
+    font-size: 11px;
+    color: var(--turquoise);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  .footer-col a, .footer-col span {
+    display: block;
+    color: var(--text-dim);
+    text-decoration: none;
+    margin-bottom: 12px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: color 0.2s;
+  }
+  .footer-col a:hover { color: var(--turquoise); }
+
+  .footer-bottom {
+    border-top: 1px solid var(--border);
+    padding-top: 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+    color: var(--text-faint);
+    font-family: 'Geist Mono', monospace;
+  }
+
+  /* ==================== MOBILE ==================== */
+  @media (max-width: 1024px) {
+    .nav-links { display: none; }
+    .hero-stats { grid-template-columns: repeat(2, 1fr); }
+    .products-grid { grid-template-columns: 1fr; }
+    .why-grid { grid-template-columns: 1fr; }
+    .process-steps { grid-template-columns: repeat(2, 1fr); }
+    .form-wrapper { grid-template-columns: 1fr; }
+    .summary-card { position: relative; top: 0; }
+    .founder { grid-template-columns: 1fr; gap: 40px; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+  }
+
+  @media (max-width: 640px) {
+    nav { padding: 16px 20px; }
+    nav.scrolled { padding: 12px 20px; }
+    .container, .container-narrow, .hero-content { padding: 0 20px; }
+    .hero { padding: 60px 0 80px; }
+    .hero-stats { grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 80px; }
+    .stat .stat-num { font-size: 40px; }
+    .section { padding: 80px 0; }
+    .product-card { padding: 32px; }
+    .form-card { padding: 28px; }
+    .form-grid { grid-template-columns: 1fr; }
+    .field.span-2 { grid-column: span 1; }
+    .process { padding: 48px 28px; }
+    .cta-box { padding: 56px 28px; }
+    .values-grid { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <a class="logo" data-route="home">
+    <div class="logo-mark">
+      <svg viewBox="0 0 32 32" fill="none">
+        <path d="M4 24 L16 6 L28 24 Z" stroke="currentColor" stroke-width="2" fill="none"/>
+        <path d="M10 24 L16 14 L22 24" stroke="#2DD4BF" stroke-width="2" fill="none"/>
+        <circle cx="16" cy="20" r="2" fill="#2DD4BF"/>
+      </svg>
+    </div>
+    <div class="logo-text">Meridian<em>.</em></div>
+  </a>
+
+  <div class="nav-links">
+    <button class="nav-link" data-route="home">Home</button>
+    <div class="nav-dropdown">
+      <button class="nav-link">Services ▾</button>
+      <div class="nav-dropdown-menu">
+        <a class="nav-dropdown-item" data-route="builders-risk">Builders Risk <span class="badge">Live</span></a>
+        <a class="nav-dropdown-item" data-route="vacant">Vacant Property <span class="badge">Live</span></a>
+        <a class="nav-dropdown-item" data-route="dwelling-fire">Dwelling Fire <span class="badge" style="background:rgba(120,120,120,0.1);color:var(--text-faint);">Soon</span></a>
+        <a class="nav-dropdown-item" data-route="rental">Landlord & Rental <span class="badge" style="background:rgba(120,120,120,0.1);color:var(--text-faint);">Soon</span></a>
+        <a class="nav-dropdown-item" data-route="commercial-property">Commercial Property <span class="badge" style="background:rgba(120,120,120,0.1);color:var(--text-faint);">Soon</span></a>
+        <a class="nav-dropdown-item" data-route="general-liability">General Liability <span class="badge" style="background:rgba(120,120,120,0.1);color:var(--text-faint);">Soon</span></a>
+      </div>
+    </div>
+    <button class="nav-link" data-route="about">About</button>
+    <button class="nav-link" data-route="quote">Get a Quote</button>
+  </div>
+
+  <div class="nav-cta-group">
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+      <svg id="iconMoon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+      </svg>
+    </button>
+    <button class="btn btn-primary" data-route="quote">
+      Get a Quote
+      <svg class="btn-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <path d="M5 12h14M13 5l7 7-7 7"/>
+      </svg>
+    </button>
+  </div>
+</nav>
+
+<!-- ============================= HOME ============================= -->
+<div class="page active" data-page="home">
+  <section class="hero">
+    <div class="hero-bg">
+      <div class="hero-grid"></div>
+      <div class="hero-glow"></div>
+    </div>
+    <div class="hero-content">
+      <div class="hero-eyebrow">Specialty Real Estate Insurance</div>
+      <h1>Coverage built for <em>builders, flippers</em> and real estate investors.</h1>
+      <p class="hero-sub">From the framing stage to the final flip, Meridian writes the kind of short-term, high-flexibility policies that traditional carriers won't touch. Quotes in hours, not weeks.</p>
+      <div class="hero-actions">
+        <button class="btn btn-primary" data-route="quote">
+          Start a Quote
+          <svg class="btn-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M5 12h14M13 5l7 7-7 7"/>
+          </svg>
+        </button>
+        <button class="btn btn-ghost" data-route="about">Why Meridian</button>
+      </div>
+
+      <div class="hero-stats">
+        <div class="stat">
+          <div class="stat-num">24h</div>
+          <div class="stat-label">Average Quote Turnaround</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">3–12<span style="font-size:32px;color:var(--text-dim);">mo</span></div>
+          <div class="stat-label">Flexible Policy Terms</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">A+</div>
+          <div class="stat-label">Carrier Ratings</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">50<span style="color:var(--text-dim);">st</span></div>
+          <div class="stat-label">Licensed Coverage Areas</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-eyebrow">Our Services</div>
+      <h2 class="section-title">Specialty coverage for <em>every phase</em> of your project.</h2>
+      <p class="section-intro">Most insurance carriers want a stabilized property with a long lease. We write what they decline — vacant homes, ground-up construction, fix-and-flip projects, and short-term holds.</p>
+
+      <div class="products-grid">
+        <div class="product-card active" data-route="builders-risk">
+          <div>
+            <span class="product-status live">Available Now</span>
+            <span class="product-number">01 / Builders Risk</span>
+            <h3 class="product-title">Builders Risk Insurance</h3>
+            <p class="product-desc">Coverage during construction or renovation — from foundation to final walk-through. Designed for fix-and-flippers, ground-up builders, and rehab investors. Residential or commercial, 3 to 12 month terms.</p>
+          </div>
+          <span class="product-cta">
+            Learn more
+            <svg class="product-cta-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+          </span>
+        </div>
+
+        <div class="product-card active" data-route="vacant">
+          <div>
+            <span class="product-status live">Available Now</span>
+            <span class="product-number">02 / Vacant Property</span>
+            <h3 class="product-title">Vacant Property Coverage</h3>
+            <p class="product-desc">Protection for properties between tenants, in probate, awaiting renovation, or sitting on the market. Flexible terms with no occupancy penalties — built for the realities of real estate investing.</p>
+          </div>
+          <span class="product-cta">
+            Learn more
+            <svg class="product-cta-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+          </span>
+        </div>
+
+        <div class="product-card" data-route="dwelling-fire">
+          <div>
+            <span class="product-status soon">Coming Soon</span>
+            <span class="product-number">03 / Dwelling Fire</span>
+            <h3 class="product-title">Dwelling Fire (DP-3)</h3>
+            <p class="product-desc">Comprehensive named-peril and open-peril coverage for non-owner-occupied homes. Built for landlords and long-term hold investors.</p>
+          </div>
+          <span class="product-cta">
+            Learn more
+            <svg class="product-cta-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+          </span>
+        </div>
+
+        <div class="product-card" data-route="rental">
+          <div>
+            <span class="product-status soon">Coming Soon</span>
+            <span class="product-number">04 / Landlord</span>
+            <h3 class="product-title">Landlord & Rental</h3>
+            <p class="product-desc">Single-family rentals, multifamily portfolios, and short-term rental coverage with loss-of-rents protection and liability.</p>
+          </div>
+          <span class="product-cta">
+            Learn more
+            <svg class="product-cta-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+          </span>
+        </div>
+
+        <div class="product-card" data-route="commercial-property">
+          <div>
+            <span class="product-status soon">Coming Soon</span>
+            <span class="product-number">05 / Commercial</span>
+            <h3 class="product-title">Commercial Property</h3>
+            <p class="product-desc">Coverage for retail, office, industrial, and mixed-use buildings. Tailored deductibles, replacement-cost valuation, and business income protection.</p>
+          </div>
+          <span class="product-cta">
+            Learn more
+            <svg class="product-cta-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+          </span>
+        </div>
+
+        <div class="product-card" data-route="general-liability">
+          <div>
+            <span class="product-status soon">Coming Soon</span>
+            <span class="product-number">06 / Liability</span>
+            <h3 class="product-title">General Liability</h3>
+            <p class="product-desc">Premises and operations liability for property owners, contractors, and investors. Pairs with our builders risk and vacant policies.</p>
+          </div>
+          <span class="product-cta">
+            Learn more
+            <svg class="product-cta-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+          </span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-eyebrow">Why Meridian</div>
+      <h2 class="section-title">A broker that actually <em>understands</em> your deal.</h2>
+
+      <div class="why-grid">
+        <div class="why-item">
+          <div class="why-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 8v4l3 3M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0z"/></svg>
+          </div>
+          <h3 class="why-title">Quotes in Hours</h3>
+          <p class="why-desc">Submit your details and receive a real, bindable quote within 24 hours — most come back same-day. No back-and-forth, no chasing underwriters.</p>
+        </div>
+        <div class="why-item">
+          <div class="why-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12l2-2 4 4 8-8 4 4"/></svg>
+          </div>
+          <h3 class="why-title">Built for Investors</h3>
+          <p class="why-desc">We speak the language of LLCs, hard-money lenders, mortgagee clauses, and ARV. You won't waste time explaining what a flip is.</p>
+        </div>
+        <div class="why-item">
+          <div class="why-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+          </div>
+          <h3 class="why-title">Multiple Carriers</h3>
+          <p class="why-desc">We shop your risk across multiple A-rated specialty carriers so you get the right coverage at the right price — not whatever one carrier will offer.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="process">
+        <div class="process-glow"></div>
+        <div class="section-eyebrow">How It Works</div>
+        <h2 class="section-title">From quote to bound, in <em>four steps</em>.</h2>
+
+        <div class="process-steps">
+          <div class="process-step">
+            <div class="process-num">01</div>
+            <div class="process-step-title">Submit</div>
+            <p class="process-step-desc">Fill out our quote form with property and project details. Takes about 3 minutes.</p>
+          </div>
+          <div class="process-step">
+            <div class="process-num">02</div>
+            <div class="process-step-title">Quote</div>
+            <p class="process-step-desc">We shop your risk across carriers and return a quote — usually within 24 hours.</p>
+          </div>
+          <div class="process-step">
+            <div class="process-num">03</div>
+            <div class="process-step-title">Review</div>
+            <p class="process-step-desc">We walk you through coverage, deductibles, and answer questions. No pressure.</p>
+          </div>
+          <div class="process-step">
+            <div class="process-num">04</div>
+            <div class="process-step-title">Bind</div>
+            <p class="process-step-desc">Sign, pay, and your policy is in force. Certificates issued same day.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-section">
+    <div class="container">
+      <div class="cta-box">
+        <h2>Ready to insure your <em>next project</em>?</h2>
+        <p>Whether you're closing on a flip next week or planning a ground-up build next year, we'll have you covered.</p>
+        <button class="btn btn-primary" data-route="quote">
+          Get Started
+          <svg class="btn-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============================= ABOUT ============================= -->
+<div class="page" data-page="about">
+  <section class="about-hero">
+    <div class="container">
+      <div class="section-eyebrow">About Meridian</div>
+      <h1 class="section-title" style="font-size:clamp(48px,7vw,88px);max-width:18ch;">A specialty agency built around the way <em>investors</em> actually work.</h1>
+
+      <div class="about-block">
+        <p>Meridian Specialty Insurance was founded on a simple observation: <strong>traditional insurance brokers aren't built for real estate investors.</strong> They want stabilized properties, owner-occupants, and 12-month leases. They don't know what to do with a vacant duplex, a half-finished rehab, or a 90-day fix-and-flip.</p>
+        <p>We do.</p>
+        <p>Our specialty is <strong>builders risk, vacant property, and short-term real estate coverage</strong> — the policies most carriers consider too messy, too short, or too unusual to bother with. We've built relationships with the carriers who actually want this business, so you get competitive pricing on coverage that fits the way you operate: fast, flexible, and unapologetically investor-focused.</p>
+        <p>Fix-and-flippers, ground-up builders, BRRRR investors, and anyone whose deals don't fit a standard policy form — we built this agency for you.</p>
+      </div>
+
+      <div class="values-grid">
+        <div class="value-card">
+          <div class="value-num">01 / Speed</div>
+          <h3 class="value-title">Quotes in Hours, Not Weeks</h3>
+          <p class="value-desc">Real estate moves fast. Closings don't wait on underwriters. We've structured our intake, carrier relationships, and submission process to turn quotes around in 24 hours or less.</p>
+        </div>
+        <div class="value-card">
+          <div class="value-num">02 / Flexibility</div>
+          <h3 class="value-title">Policies Built for Your Timeline</h3>
+          <p class="value-desc">3, 6, or 12-month terms. Mid-policy renovations. Mortgagee changes when you refinance. Our policies bend to match your project, not the other way around.</p>
+        </div>
+        <div class="value-card">
+          <div class="value-num">03 / Expertise</div>
+          <h3 class="value-title">Investors First, Always</h3>
+          <p class="value-desc">We don't sell auto, life, or homeowners. We focus on one thing: investor-grade property coverage. That focus means deeper market knowledge and better outcomes for you.</p>
+        </div>
+        <div class="value-card">
+          <div class="value-num">04 / Transparency</div>
+          <h3 class="value-title">No Jargon, No Surprises</h3>
+          <p class="value-desc">We tell you what's covered, what isn't, and what your deductible means in plain English. If a carrier declines or restricts coverage, we tell you why.</p>
+        </div>
+      </div>
+
+      <div class="founder">
+        <div class="founder-portrait">
+          <div class="founder-initials">A.</div>
+        </div>
+        <div class="founder-body">
+          <h3>Founder</h3>
+          <h2>Andrew</h2>
+          <p class="founder-title">Founder & Principal Broker</p>
+          <p>Andrew founded Meridian after years of watching real estate investors — including friends, family, and his own deals — get squeezed by carriers that didn't understand their business. Bad quotes. Slow turnarounds. Coverage gaps nobody flagged until a claim happened.</p>
+          <p>The agency he built is the one he wished existed when he was closing his first flip: fast, transparent, investor-fluent, and built around the realities of how deals actually get done. When he's not placing a builders risk policy or arguing with an underwriter about a vacancy clause, he's probably looking at his next project.</p>
+          <p>Have a deal you need to insure? <strong>Reach out directly.</strong></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-section">
+    <div class="container">
+      <div class="cta-box">
+        <h2>Let's get your <em>next deal</em> covered.</h2>
+        <p>Start a quote in under 3 minutes. We'll do the rest.</p>
+        <button class="btn btn-primary" data-route="quote">
+          Get a Quote
+          <svg class="btn-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============================= QUOTE ============================= -->
+<div class="page" data-page="quote">
+  <section class="quote-hero">
+    <div class="container">
+      <div class="section-eyebrow">Quote Request</div>
+      <h1 class="section-title" style="font-size:clamp(40px,5vw,64px);max-width:22ch;">Tell us about your project — we'll handle the <em>rest</em>.</h1>
+      <p style="color:var(--text-dim);font-size:16px;max-width:60ch;margin-bottom:48px;">Takes about 3 minutes. All fields can be edited later. We typically respond within 24 hours, often the same day.</p>
+
+      <div class="form-wrapper">
+        <div class="form-card">
+          <div class="form-step-indicator">
+            <div class="step-dot active" data-dot="1"></div>
+            <div class="step-dot" data-dot="2"></div>
+            <div class="step-dot" data-dot="3"></div>
+            <div class="step-dot" data-dot="4"></div>
+          </div>
+
+          <form id="quoteForm">
+            <!-- STEP 1: INSURED -->
+            <div class="form-step active" data-step="1">
+              <h2 class="form-step-title">Insured information</h2>
+              <p class="form-step-sub">Step 1 of 4 — Who's the named insured?</p>
+
+              <div class="form-grid">
+                <div class="field span-2">
+                  <label>Named Insured (LLC) <span class="required">*</span></label>
+                  <input type="text" name="namedInsured" placeholder="e.g. Sunset Holdings LLC" required>
+                </div>
+                <div class="field span-2">
+                  <label>Mailing Address for Insured <span class="required">*</span></label>
+                  <input type="text" name="mailingAddress" placeholder="123 Main St, City, State, ZIP" required>
+                </div>
+                <div class="field span-2">
+                  <label>Is the named insured the contractor? <span class="required">*</span></label>
+                  <div class="radio-group">
+                    <label class="radio-option">
+                      <input type="radio" name="isContractor" value="Yes" required>
+                      <div class="radio-card">Yes</div>
+                    </label>
+                    <label class="radio-option">
+                      <input type="radio" name="isContractor" value="No">
+                      <div class="radio-card">No</div>
+                    </label>
+                  </div>
+                </div>
+                <div class="field">
+                  <label>Contact Name <span class="required">*</span></label>
+                  <input type="text" name="contactName" placeholder="Full name" required>
+                </div>
+                <div class="field">
+                  <label>Email <span class="required">*</span></label>
+                  <input type="email" name="email" placeholder="you@email.com" required>
+                </div>
+              </div>
+
+              <div class="form-actions">
+                <div></div>
+                <button type="button" class="btn btn-primary" data-next="2">
+                  Continue
+                  <svg class="btn-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+                </button>
+              </div>
+            </div>
+
+            <!-- STEP 2: PROPERTY -->
+            <div class="form-step" data-step="2">
+              <h2 class="form-step-title">Property details</h2>
+              <p class="form-step-sub">Step 2 of 4 — Where and what are we insuring?</p>
+
+              <div class="form-grid">
+                <div class="field span-2">
+                  <label>Property Address <span class="required">*</span></label>
+                  <input type="text" name="propertyAddress" placeholder="123 Project Way, City, State, ZIP" required>
+                </div>
+                <div class="field">
+                  <label>Loan Amount <span class="required">*</span></label>
+                  <input type="text" name="loanAmount" placeholder="$" required>
+                </div>
+                <div class="field">
+                  <label>Building Value <span class="required">*</span></label>
+                  <input type="text" name="buildingValue" placeholder="$" required>
+                </div>
+                <div class="field">
+                  <label>Square Footage <span class="required">*</span></label>
+                  <input type="text" name="squareFootage" placeholder="e.g. 2,400" required>
+                </div>
+                <div class="field">
+                  <label>Protection Class (1–10) <span class="required">*</span></label>
+                  <select name="protectionClass" required>
+                    <option value="">Select...</option>
+                    <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+                    <option>6</option><option>7</option><option>8</option><option>9</option><option>10</option>
+                    <option>Unknown</option>
+                  </select>
+                </div>
+                <div class="field span-2">
+                  <label>Property Type <span class="required">*</span></label>
+                  <div class="radio-group">
+                    <label class="radio-option">
+                      <input type="radio" name="propertyType" value="Residential" required>
+                      <div class="radio-card">Residential</div>
+                    </label>
+                    <label class="radio-option">
+                      <input type="radio" name="propertyType" value="Commercial">
+                      <div class="radio-card">Commercial</div>
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-actions">
+                <button type="button" class="btn btn-ghost" data-prev="1">Back</button>
+                <button type="button" class="btn btn-primary" data-next="3">
+                  Continue
+                  <svg class="btn-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+                </button>
+              </div>
+            </div>
+
+            <!-- STEP 3: PROJECT -->
+            <div class="form-step" data-step="3">
+              <h2 class="form-step-title">Project & coverage</h2>
+              <p class="form-step-sub">Step 3 of 4 — Tell us about the work and the coverage you need.</p>
+
+              <div class="form-grid">
+                <div class="field span-2">
+                  <label>Project Type <span class="required">*</span></label>
+                  <div class="radio-group">
+                    <label class="radio-option">
+                      <input type="radio" name="projectType" value="Ground-up Construction" required>
+                      <div class="radio-card">Ground-up Construction</div>
+                    </label>
+                    <label class="radio-option">
+                      <input type="radio" name="projectType" value="Renovation">
+                      <div class="radio-card">Renovation</div>
+                    </label>
+                  </div>
+                </div>
+
+                <div class="field span-2">
+                  <label>Policy Term <span class="required">*</span></label>
+                  <div class="pill-group">
+                    <label class="pill-option">
+                      <input type="radio" name="policyTerm" value="3 months" required>
+                      <span class="pill">3 months</span>
+                    </label>
+                    <label class="pill-option">
+                      <input type="radio" name="policyTerm" value="6 months">
+                      <span class="pill">6 months</span>
+                    </label>
+                    <label class="pill-option">
+                      <input type="radio" name="policyTerm" value="12 months">
+                      <span class="pill">12 months</span>
+                    </label>
+                  </div>
+                </div>
+
+                <div class="field span-2">
+                  <label>Perils <span class="required">*</span></label>
+                  <div class="radio-group">
+                    <label class="radio-option">
+                      <input type="radio" name="perils" value="Basic" required>
+                      <div class="radio-card">Basic Form</div>
+                    </label>
+                    <label class="radio-option">
+                      <input type="radio" name="perils" value="Special">
+                      <div class="radio-card">Special Form</div>
+                    </label>
+                  </div>
+                </div>
+
+                <div class="field span-2">
+                  <label>Construction Type <span class="required">*</span></label>
+                  <select name="constructionType" required>
+                    <option value="">Select construction type...</option>
+                    <option>Frame</option>
+                    <option>Joisted Masonry</option>
+                    <option>Non-Combustible</option>
+                    <option>Masonry Non-Combustible</option>
+                    <option>Modified Fire-Resistant</option>
+                    <option>Fire Resistant</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-actions">
+                <button type="button" class="btn btn-ghost" data-prev="2">Back</button>
+                <button type="button" class="btn btn-primary" data-next="4">
+                  Continue
+                  <svg class="btn-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+                </button>
+              </div>
+            </div>
+
+            <!-- STEP 4: REVIEW -->
+            <div class="form-step" data-step="4">
+              <h2 class="form-step-title">Review & submit</h2>
+              <p class="form-step-sub">Step 4 of 4 — Anything we should know? Then submit and we'll be in touch within 24 hours.</p>
+
+              <div class="form-grid">
+                <div class="field span-2">
+                  <label>Additional Notes (Optional)</label>
+                  <textarea name="notes" rows="4" placeholder="Anything else you'd like us to know — special circumstances, claims history, prior coverage, lender requirements, etc."></textarea>
+                </div>
+                <div class="field span-2">
+                  <label>Phone (Optional)</label>
+                  <input type="tel" name="phone" placeholder="(555) 555-5555">
+                </div>
+              </div>
+
+              <div class="form-actions">
+                <button type="button" class="btn btn-ghost" data-prev="3">Back</button>
+                <button type="submit" class="btn btn-primary">
+                  Submit Quote Request
+                  <svg class="btn-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+                </button>
+              </div>
+            </div>
+
+            <!-- SUCCESS -->
+            <div class="quote-success" id="quoteSuccess">
+              <div class="success-icon">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <path d="M5 13l4 4L19 7"/>
+                </svg>
+              </div>
+              <h2 class="form-step-title" style="text-align:center;">Quote request received.</h2>
+              <p style="color:var(--text-dim);max-width:48ch;margin:0 auto 32px;">Thanks — we've got your details. Expect a response from our team within 24 hours, often the same day. We'll follow up via email with your quote.</p>
+              <button type="button" class="btn btn-ghost" id="newQuoteBtn">Start Another Quote</button>
+            </div>
+          </form>
+        </div>
+
+        <aside class="summary-card" id="summaryCard">
+          <h3>Quote Summary</h3>
+          <div class="summary-item">
+            <span class="label">Named Insured</span>
+            <span class="value empty" data-summary="namedInsured">Not yet provided</span>
+          </div>
+          <div class="summary-item">
+            <span class="label">Property</span>
+            <span class="value empty" data-summary="propertyAddress">Not yet provided</span>
+          </div>
+          <div class="summary-item">
+            <span class="label">Property Type</span>
+            <span class="value empty" data-summary="propertyType">—</span>
+          </div>
+          <div class="summary-item">
+            <span class="label">Project Type</span>
+            <span class="value empty" data-summary="projectType">—</span>
+          </div>
+          <div class="summary-item">
+            <span class="label">Policy Term</span>
+            <span class="value empty" data-summary="policyTerm">—</span>
+          </div>
+          <div class="summary-item">
+            <span class="label">Construction</span>
+            <span class="value empty" data-summary="constructionType">—</span>
+          </div>
+          <div class="summary-item">
+            <span class="label">Perils</span>
+            <span class="value empty" data-summary="perils">—</span>
+          </div>
+          <div class="summary-item">
+            <span class="label">Building Value</span>
+            <span class="value empty" data-summary="buildingValue">—</span>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============================= BUILDERS RISK ============================= -->
+<div class="page" data-page="builders-risk">
+  <section class="about-hero">
+    <div class="container">
+      <div class="section-eyebrow">Service 01 / Available Now</div>
+      <h1 class="section-title" style="font-size:clamp(48px,7vw,88px);max-width:18ch;">Builders Risk <em>Insurance.</em></h1>
+      <div class="about-block">
+        <p>Coverage for property under construction or renovation — designed for <strong>fix-and-flippers, ground-up builders, and rehab investors</strong>. Whether you're demoing studs or pouring foundation, our builders risk policies protect the structure, materials, and work in progress against fire, theft, vandalism, and more.</p>
+        <p>We write 3, 6, and 12 month terms for residential and commercial projects, with flexible mid-policy options if your timeline shifts.</p>
+      </div>
+
+      <div class="values-grid">
+        <div class="value-card">
+          <div class="value-num">Coverage</div>
+          <h3 class="value-title">Structure, Materials & Labor</h3>
+          <p class="value-desc">The building under construction, materials on-site, and in some cases materials in transit or temporary storage.</p>
+        </div>
+        <div class="value-card">
+          <div class="value-num">Perils</div>
+          <h3 class="value-title">Basic or Special Form</h3>
+          <p class="value-desc">Choose between named-peril (basic) or open-peril (special form) coverage based on your risk tolerance and budget.</p>
+        </div>
+        <div class="value-card">
+          <div class="value-num">Term</div>
+          <h3 class="value-title">3, 6, or 12 Months</h3>
+          <p class="value-desc">Short-term coverage that matches your project timeline. Extensions available if work runs over.</p>
+        </div>
+        <div class="value-card">
+          <div class="value-num">Property</div>
+          <h3 class="value-title">Residential or Commercial</h3>
+          <p class="value-desc">Single-family rehabs, multifamily new construction, mixed-use, and small commercial projects all welcome.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-section">
+    <div class="container">
+      <div class="cta-box">
+        <h2>Get a <em>builders risk</em> quote today.</h2>
+        <p>3 minutes to submit. 24 hours to a quote. Bind same day.</p>
+        <button class="btn btn-primary" data-route="quote">
+          Start Quote
+          <svg class="btn-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============================= VACANT ============================= -->
+<div class="page" data-page="vacant">
+  <section class="about-hero">
+    <div class="container">
+      <div class="section-eyebrow">Service 02 / Available Now</div>
+      <h1 class="section-title" style="font-size:clamp(48px,7vw,88px);max-width:18ch;">Vacant Property <em>Coverage.</em></h1>
+      <div class="about-block">
+        <p>Most standard homeowners and landlord policies <strong>exclude vacancy after 30 to 60 days</strong>. If your property is sitting empty between tenants, in probate, awaiting renovation, or just hasn't sold yet, you're likely uninsured exactly when you need coverage most.</p>
+        <p>Our vacant property policies fill that gap — with flexible terms, no occupancy penalties, and coverage tailored to the realities of real estate investing.</p>
+      </div>
+
+      <div class="values-grid">
+        <div class="value-card">
+          <div class="value-num">Use Cases</div>
+          <h3 class="value-title">Between Tenants or Buyers</h3>
+          <p class="value-desc">Properties listed for sale, awaiting a new tenant, in turnover, or held vacant intentionally during a hold strategy.</p>
+        </div>
+        <div class="value-card">
+          <div class="value-num">Use Cases</div>
+          <h3 class="value-title">Pre-Renovation Holds</h3>
+          <p class="value-desc">Just closed but not yet started renovations? Get vacant coverage now and switch to builders risk when work begins.</p>
+        </div>
+        <div class="value-card">
+          <div class="value-num">Use Cases</div>
+          <h3 class="value-title">Probate & Estate Properties</h3>
+          <p class="value-desc">Inherited or estate-held properties often sit vacant for months. We cover the gap until the property is sold or transferred.</p>
+        </div>
+        <div class="value-card">
+          <div class="value-num">Coverage</div>
+          <h3 class="value-title">Fire, Theft, Vandalism</h3>
+          <p class="value-desc">Named-peril and special-form options available. Liability coverage can be added for an additional premium.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-section">
+    <div class="container">
+      <div class="cta-box">
+        <h2>Insure your <em>vacant property</em> today.</h2>
+        <p>Don't wait for a standard policy to lapse vacancy coverage. Get the right policy from day one.</p>
+        <button class="btn btn-primary" data-route="quote">
+          Start Quote
+          <svg class="btn-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============================= COMING SOON PAGES ============================= -->
+<div class="page" data-page="dwelling-fire">
+  <section class="coming-soon-page">
+    <div class="container-narrow">
+      <span class="coming-soon-tag">Coming Soon</span>
+      <h1>Dwelling Fire <em>(DP-3).</em></h1>
+      <p>We're still building this one out. Comprehensive named-peril and open-peril coverage for non-owner-occupied homes — perfect for landlords and long-term hold investors. Want early access? Drop us a note when you start a quote.</p>
+      <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
+        <button class="btn btn-primary" data-route="quote">
+          Get on the List
+          <svg class="btn-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </button>
+        <button class="btn btn-ghost" data-route="home">Back to Home</button>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div class="page" data-page="rental">
+  <section class="coming-soon-page">
+    <div class="container-narrow">
+      <span class="coming-soon-tag">Coming Soon</span>
+      <h1>Landlord & <em>Rental.</em></h1>
+      <p>Still programming this product. Single-family rentals, multifamily portfolios, and short-term rental coverage with loss-of-rents protection and liability — all on the way. Reach out and we'll let you know the moment it's live.</p>
+      <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
+        <button class="btn btn-primary" data-route="quote">
+          Get on the List
+          <svg class="btn-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </button>
+        <button class="btn btn-ghost" data-route="home">Back to Home</button>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div class="page" data-page="commercial-property">
+  <section class="coming-soon-page">
+    <div class="container-narrow">
+      <span class="coming-soon-tag">Coming Soon</span>
+      <h1>Commercial <em>Property.</em></h1>
+      <p>This one's in development. Coverage for retail, office, industrial, and mixed-use buildings with tailored deductibles, replacement-cost valuation, and business income protection. Want a heads up when we launch?</p>
+      <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
+        <button class="btn btn-primary" data-route="quote">
+          Get on the List
+          <svg class="btn-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </button>
+        <button class="btn btn-ghost" data-route="home">Back to Home</button>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div class="page" data-page="general-liability">
+  <section class="coming-soon-page">
+    <div class="container-narrow">
+      <span class="coming-soon-tag">Coming Soon</span>
+      <h1>General <em>Liability.</em></h1>
+      <p>Coming soon. Premises and operations liability for property owners, contractors, and investors — pairs perfectly with our builders risk and vacant policies. Drop us a line and we'll notify you when it's available.</p>
+      <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
+        <button class="btn btn-primary" data-route="quote">
+          Get on the List
+          <svg class="btn-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </button>
+        <button class="btn btn-ghost" data-route="home">Back to Home</button>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============================= FOOTER ============================= -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo">
+          <div class="logo-mark">
+            <svg viewBox="0 0 32 32" fill="none">
+              <path d="M4 24 L16 6 L28 24 Z" stroke="currentColor" stroke-width="2" fill="none"/>
+              <path d="M10 24 L16 14 L22 24" stroke="#2DD4BF" stroke-width="2" fill="none"/>
+              <circle cx="16" cy="20" r="2" fill="#2DD4BF"/>
+            </svg>
+          </div>
+          <div class="logo-text">Meridian<em>.</em></div>
+        </div>
+        <p>Specialty insurance for real estate investors. Builders risk, vacant property, and short-term coverage that fits the way you actually do business.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <a data-route="builders-risk">Builders Risk</a>
+        <a data-route="vacant">Vacant Property</a>
+        <a data-route="dwelling-fire">Dwelling Fire</a>
+        <a data-route="rental">Landlord & Rental</a>
+        <a data-route="commercial-property">Commercial Property</a>
+        <a data-route="general-liability">General Liability</a>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a data-route="about">About</a>
+        <a data-route="about">Founder</a>
+        <a data-route="quote">Get a Quote</a>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <span>hello@meridianspecialty.com</span>
+        <span>Mon–Fri, 9a–6p</span>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Meridian Specialty Insurance. All rights reserved.</span>
+      <span>Licensed in 50 states</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // ============== ROUTING ==============
+  const pages = document.querySelectorAll('.page');
+  const navLinks = document.querySelectorAll('.nav-link');
+
+  function navigate(route) {
+    pages.forEach(p => p.classList.remove('active'));
+    const target = document.querySelector(`[data-page="${route}"]`);
+    if (target) {
+      target.classList.add('active');
+    } else {
+      document.querySelector('[data-page="home"]').classList.add('active');
+    }
+    // update active nav
+    navLinks.forEach(l => l.classList.remove('active'));
+    navLinks.forEach(l => {
+      if (l.dataset.route === route) l.classList.add('active');
+      // Home button needs special treatment
+      if (route === 'home' && l.textContent.trim() === 'Home') l.classList.add('active');
+    });
+
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }
+
+  document.body.addEventListener('click', e => {
+    const trigger = e.target.closest('[data-route]');
+    if (trigger) {
+      e.preventDefault();
+      navigate(trigger.dataset.route);
+    }
+  });
+
+  // ============== NAV SCROLL EFFECT ==============
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 30) nav.classList.add('scrolled');
+    else nav.classList.remove('scrolled');
+  });
+
+  // ============== THEME TOGGLE ==============
+  const html = document.documentElement;
+  const themeToggle = document.getElementById('themeToggle');
+  const iconMoon = document.getElementById('iconMoon');
+
+  const sunIcon = '<path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10z"/>';
+  const moonIcon = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>';
+
+  themeToggle.addEventListener('click', () => {
+    const current = html.getAttribute('data-theme');
+    const next = current === 'dark' ? 'light' : 'dark';
+    html.setAttribute('data-theme', next);
+    iconMoon.innerHTML = next === 'dark' ? moonIcon : sunIcon;
+  });
+
+  // ============== MULTI-STEP FORM ==============
+  const form = document.getElementById('quoteForm');
+  const steps = form.querySelectorAll('.form-step');
+  const dots = document.querySelectorAll('.step-dot');
+
+  function showStep(n) {
+    steps.forEach(s => s.classList.remove('active'));
+    form.querySelector(`[data-step="${n}"]`).classList.add('active');
+
+    dots.forEach(d => {
+      const num = parseInt(d.dataset.dot);
+      d.classList.remove('active', 'completed');
+      if (num < n) d.classList.add('completed');
+      else if (num === n) d.classList.add('active');
+    });
+  }
+
+  function validateStep(n) {
+    const step = form.querySelector(`[data-step="${n}"]`);
+    const required = step.querySelectorAll('[required]');
+    let valid = true;
+    const radioGroups = new Set();
+    required.forEach(field => {
+      if (field.type === 'radio') {
+        radioGroups.add(field.name);
+      } else if (!field.value.trim()) {
+        valid = false;
+        field.style.borderColor = '#ef4444';
+        setTimeout(() => field.style.borderColor = '', 2000);
+      }
+    });
+    radioGroups.forEach(name => {
+      const checked = form.querySelector(`input[name="${name}"]:checked`);
+      if (!checked) valid = false;
+    });
+    return valid;
+  }
+
+  form.querySelectorAll('[data-next]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const next = parseInt(btn.dataset.next);
+      const current = next - 1;
+      if (validateStep(current)) {
+        showStep(next);
+        updateSummary();
+      }
+    });
+  });
+
+  form.querySelectorAll('[data-prev]').forEach(btn => {
+    btn.addEventListener('click', () => showStep(parseInt(btn.dataset.prev)));
+  });
+
+  // live summary updates
+  function updateSummary() {
+    const fd = new FormData(form);
+    document.querySelectorAll('[data-summary]').forEach(el => {
+      const key = el.dataset.summary;
+      const value = fd.get(key);
+      if (value) {
+        el.textContent = key === 'buildingValue' && !value.startsWith('$') ? '$' + value : value;
+        el.classList.remove('empty');
+      }
+    });
+  }
+  form.addEventListener('input', updateSummary);
+  form.addEventListener('change', updateSummary);
+
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    if (!validateStep(4)) return;
+    // hide all steps + indicator, show success
+    steps.forEach(s => s.style.display = 'none');
+    document.querySelector('.form-step-indicator').style.display = 'none';
+    document.getElementById('quoteSuccess').classList.add('shown');
+  });
+
+  document.getElementById('newQuoteBtn').addEventListener('click', () => {
+    form.reset();
+    steps.forEach(s => s.style.display = '');
+    document.querySelector('.form-step-indicator').style.display = '';
+    document.getElementById('quoteSuccess').classList.remove('shown');
+    showStep(1);
+    document.querySelectorAll('[data-summary]').forEach(el => {
+      el.classList.add('empty');
+      const original = el.textContent.includes('Not yet') ? 'Not yet provided' : '—';
+      el.textContent = original;
+    });
+  });
+</script>
+</body>
+</html>
